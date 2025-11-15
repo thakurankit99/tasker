@@ -21,12 +21,22 @@ import { getQueueToken } from './decorators/inject-queue.decorator';
         const host = configService.get<string>('REDIS_HOST', 'localhost');
         const port = configService.get<number>('REDIS_PORT', 6379);
         const password = configService.get<string>('REDIS_PASSWORD');
+        const useTls = configService.get<string>('REDIS_TLS', 'false') === 'true';
+
+        // Auto-detect TLS for Upstash (upstash.io domains)
+        const shouldUseTls = useTls || host.includes('upstash.io');
 
         return {
           connection: {
             host,
             port,
             password,
+            // Enable TLS for Upstash or when explicitly configured
+            ...(shouldUseTls && {
+              tls: {
+                rejectUnauthorized: false, // Required for some cloud Redis providers
+              },
+            }),
             retryDelayOnFailover: 100,
             enableReadyCheck: false,
             maxRetriesPerRequest: null,

@@ -25,9 +25,18 @@ export class RedisConnectionValidator {
 
       for (let attempt = 1; attempt <= this.MAX_RETRIES; attempt++) {
         try {
+          // Auto-detect TLS for Upstash
+          const shouldUseTls = config.tls || config.host.includes('upstash.io');
+
           // Create Redis client with lazy connection
           redisClient = new Redis({
             ...config,
+            // Enable TLS for Upstash or when explicitly configured
+            ...(shouldUseTls && !config.tls && {
+              tls: {
+                rejectUnauthorized: false,
+              },
+            }),
             lazyConnect: true,
             connectTimeout: this.CONNECTION_TIMEOUT,
             maxRetriesPerRequest: 1,

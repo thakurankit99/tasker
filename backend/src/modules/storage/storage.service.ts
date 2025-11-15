@@ -15,13 +15,25 @@ export class StorageService {
     private readonly configService: ConfigService,
     private readonly s3Service: S3Service,
   ) {
+    // Check for Cloudflare R2 or AWS S3 configuration
+    const r2AccessKey = this.configService.get('R2_ACCESS_KEY_ID');
+    const r2SecretKey = this.configService.get('R2_SECRET_ACCESS_KEY');
+    const r2Bucket = this.configService.get('R2_BUCKET_NAME');
+
     const awsAccessKey = this.configService.get('AWS_ACCESS_KEY_ID');
     const awsSecretKey = this.configService.get('AWS_SECRET_ACCESS_KEY');
     const awsBucket = this.configService.get('AWS_BUCKET_NAME');
+
     this.uploadDir = this.configService.get('UPLOAD_DEST', './uploads');
     this.useS3 = false;
-    if (awsAccessKey && awsSecretKey && awsBucket) {
-      this.checkS3Connection(awsBucket as string)
+
+    // Prefer R2 if configured, otherwise check AWS S3
+    const hasR2 = r2AccessKey && r2SecretKey && r2Bucket;
+    const hasS3 = awsAccessKey && awsSecretKey && awsBucket;
+
+    if (hasR2 || hasS3) {
+      const bucketName = (hasR2 ? r2Bucket : awsBucket) as string;
+      this.checkS3Connection(bucketName)
         .then((connected) => {
           this.useS3 = connected;
           if (!connected && !fs.existsSync(this.uploadDir)) {

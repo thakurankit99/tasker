@@ -8,16 +8,40 @@ export class S3UploadService {
   private readonly logger = new Logger(S3UploadService.name);
   private readonly s3Client: S3Client;
   private readonly bucketName: string;
+  private readonly isR2: boolean;
+  private readonly r2PublicUrl: string | null;
 
   constructor() {
-    this.bucketName = process.env.AWS_BUCKET_NAME!;
-    this.s3Client = new S3Client({
-      region: process.env.AWS_REGION || 'ap-south-1',
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-      },
-    });
+    // Check if using Cloudflare R2
+    this.isR2 = !!(process.env.R2_ACCOUNT_ID && process.env.R2_ACCESS_KEY_ID);
+
+    if (this.isR2) {
+      // Cloudflare R2 configuration
+      const accountId = process.env.R2_ACCOUNT_ID!;
+      const endpoint = process.env.R2_ENDPOINT || `https://${accountId}.r2.cloudflarestorage.com`;
+
+      this.s3Client = new S3Client({
+        region: 'auto', // R2 uses 'auto' as region
+        endpoint: endpoint,
+        credentials: {
+          accessKeyId: process.env.R2_ACCESS_KEY_ID!,
+          secretAccessKey: process.env.R2_SECRET_ACCESS_KEY!,
+        },
+      });
+      this.bucketName = process.env.R2_BUCKET_NAME!;
+      this.r2PublicUrl = process.env.R2_PUBLIC_URL || null;
+    } else {
+      // AWS S3 configuration
+      this.bucketName = process.env.AWS_BUCKET_NAME!;
+      this.s3Client = new S3Client({
+        region: process.env.AWS_REGION || 'ap-south-1',
+        credentials: {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+        },
+      });
+      this.r2PublicUrl = null;
+    }
   }
 
   async uploadBuffer(

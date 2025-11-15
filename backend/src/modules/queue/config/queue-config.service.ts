@@ -29,6 +29,10 @@ export class QueueConfigService {
     const redisPort = this.configService.get<number>('REDIS_PORT', 6379);
     const redisPassword = this.configService.get<string>('REDIS_PASSWORD');
     const redisDb = this.configService.get<number>('REDIS_DB', 0);
+    const useTls = this.configService.get<string>('REDIS_TLS', 'false') === 'true';
+
+    // Auto-detect TLS for Upstash (upstash.io domains)
+    const shouldUseTls = useTls || redisHost.includes('upstash.io');
 
     return {
       backend: backend as 'bullmq' | 'better-queue' | 'in-memory',
@@ -40,6 +44,12 @@ export class QueueConfigService {
           password: redisPassword,
           db: redisDb,
           maxRetriesPerRequest: 3,
+          // Enable TLS for Upstash or when explicitly configured
+          ...(shouldUseTls && {
+            tls: {
+              rejectUnauthorized: false,
+            },
+          }),
         },
         prefix: this.configService.get<string>('QUEUE_PREFIX', 'taskosaur'),
       },

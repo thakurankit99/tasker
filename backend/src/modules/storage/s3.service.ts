@@ -1,4 +1,5 @@
 // Updated S3Service with upload and delete methods
+// Supports both AWS S3 and Cloudflare R2 (S3-compatible storage)
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import {
   S3Client,
@@ -15,16 +16,41 @@ import { Readable } from 'stream';
 export class S3Service {
   private s3Client: S3Client;
   private bucketName: string;
+  private isR2: boolean;
+  private r2PublicUrl: string | null;
 
   constructor() {
-    this.s3Client = new S3Client({
-      region: process.env.AWS_REGION,
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-      },
-    });
-    this.bucketName = process.env.AWS_BUCKET_NAME!;
+    // Check if using Cloudflare R2
+    this.isR2 = !!(process.env.R2_ACCOUNT_ID && process.env.R2_ACCESS_KEY_ID);
+
+    if (this.isR2) {
+      // Cloudflare R2 configuration
+      const accountId = process.env.R2_ACCOUNT_ID!;
+      const endpoint = process.env.R2_ENDPOINT || `https://${accountId}.r2.cloudflarestorage.com`;
+
+      this.s3Client = new S3Client({
+        region: 'auto', // R2 uses 'auto' as region
+        endpoint: endpoint,
+        credentials: {
+          accessKeyId: process.env.R2_ACCESS_KEY_ID!,
+          secretAccessKey: process.env.R2_SECRET_ACCESS_KEY!,
+        },
+      });
+      this.bucketName = process.env.R2_BUCKET_NAME!;
+      // R2 public URL if custom domain is configured
+      this.r2PublicUrl = process.env.R2_PUBLIC_URL || null;
+    } else {
+      // AWS S3 configuration
+      this.s3Client = new S3Client({
+        region: process.env.AWS_REGION || 'us-east-1',
+        credentials: {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+        },
+      });
+      this.bucketName = process.env.AWS_BUCKET_NAME!;
+      this.r2PublicUrl = null;
+    }
   }
 
   async uploadFile(file: Express.Multer.File, key: string): Promise<string> {
