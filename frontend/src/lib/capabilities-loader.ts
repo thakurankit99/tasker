@@ -35,9 +35,9 @@ export interface AutomationCapabilities {
 
 // Capabilities data (embedded to avoid file loading issues)
 const CAPABILITIES_DATA: AutomationCapabilities = {
-  name: "Taskosaur AI Assistant Capabilities",
+  name: "AadyaBoard AI Assistant Capabilities",
   version: "1.0.0",
-  description: "Defines the available automation capabilities for the Taskosaur AI Assistant",
+  description: "Defines the available automation capabilities for the AadyaBoard AI Assistant",
 
   capabilities: {
     authentication: {
