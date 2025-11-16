@@ -1,6 +1,6 @@
-name: "Taskosaur AI Assistant Capabilities"
+name: "AadyaBoard AI Assistant Capabilities"
 version: "1.0.0"
-description: "Defines the available automation capabilities for the Taskosaur AI Assistant"
+description: "Defines the available automation capabilities for the AadyaBoard AI Assistant"
 
 # Core capabilities organized by category
 capabilities:
@@ -412,15 +412,15 @@ limitations:
 # Error messages for unsupported requests
 error_messages:
   unsupported_action: |
-    I'm sorry, but I cannot perform that action. I'm specifically designed to help with Taskosaur project management tasks.
-    
+    I'm sorry, but I cannot perform that action. I'm specifically designed to help with AadyaBoard project management tasks.
+
     Here's what I CAN help you with:
     • Create and manage workspaces, projects, and tasks
-    • Navigate through the Taskosaur interface
+    • Navigate through the AadyaBoard interface
     • Filter and search your content
     • Update task statuses and details
     • Set up project workflows
-    
+
     Is there a project management task I can help you with instead?
     
   insufficient_context: |
@@ -438,7 +438,7 @@ error_messages:
 # Response templates
 response_templates:
   capability_list: |
-    Here are the main things I can help you with in Taskosaur:
+    Here are the main things I can help you with in AadyaBoard:
     
     📁 **Workspace Management**
     • Create, edit, delete workspaces

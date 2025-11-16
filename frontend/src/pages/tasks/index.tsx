@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useTask } from "@/contexts/task-context";
 import { useProjectContext } from "@/contexts/project-context";
@@ -744,7 +745,12 @@ function TasksPageContent() {
   }
 
   return (
-    <div className="dashboard-container h-[91vh] flex flex-col space-y-3">
+    <>
+      <Head>
+        <title>My Tasks - AadyaBoard</title>
+        <meta name="description" content="Manage and track all your assigned tasks in one place" />
+      </Head>
+      <div className="dashboard-container h-[91vh] flex flex-col space-y-3">
       {/* Sticky PageHeader */}
       <div className="sticky top-0 z-50">
         <PageHeader
@@ -864,7 +870,8 @@ function TasksPageContent() {
       )}
 
       <NewTaskModal isOpen={isNewTaskModalOpen} onClose={() => setNewTaskModalOpen(false)} />
-    </div>
+      </div>
+    </>
   );
 }
 
