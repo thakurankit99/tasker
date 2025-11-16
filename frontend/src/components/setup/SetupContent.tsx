@@ -20,13 +20,11 @@ export function SetupContent() {
           <div className="">
             <div className="flex items-center">
               <Image
-                src="/taskosaur-logo.svg"
+                src={resolvedTheme === "light" ? "/aadya-logo-dark.svg" : "/aadya-logo-white.svg"}
                 alt="AadyaBoard Logo"
-                width={50}
-                height={50}
-                className={`size-6 lg:size-10 ${
-                  resolvedTheme === "light" ? "filter invert brightness-200" : ""
-                }`}
+                width={80}
+                height={80}
+                className="size-10 lg:size-16"
               />
               <h1 className="setup-brand-title">AadyaBoard</h1>
             </div>

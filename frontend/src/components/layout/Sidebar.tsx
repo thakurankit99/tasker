@@ -463,7 +463,7 @@ export default function Sidebar() {
                   <div className="layout-sidebar-header-dashboard">
                     <div className="layout-sidebar-header-dashboard-content">
                       <div className="layout-sidebar-header-dashboard-icon">
-                        {activeItem ? activeItem.icon : "TS"}
+                        {activeItem ? activeItem.icon : "AB"}
                       </div>
                       <span className="layout-sidebar-header-dashboard-title">
                         {activeItem ? activeItem.name : "Taskosaur"}
