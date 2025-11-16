@@ -19,13 +19,14 @@ export function RegisterContent() {
             <div className="flex items-center">
               <Image
                 src="/taskosaur-logo.svg"
-                alt="Taskosaur Logo"
+                alt="AadyaBoard Logo"
                 width={50}
                 height={50}
                 className={`size-6 lg:size-10 ${resolvedTheme === "light" ? " filter invert brightness-200" : ""}`}
               />
-              <h1 className="login-brand-title">Taskosaur</h1>
+              <h1 className="login-brand-title">AadyaBoard</h1>
             </div>
+            <p className="text-sm text-[var(--primary-foreground)]/70 mt-1">by Aadya Technovate</p>
           </div>
 
           <h2 className="signup-hero-heading">
@@ -35,7 +36,7 @@ export function RegisterContent() {
           </h2>
 
           <p className="signup-hero-description">
-            Create your free account today and discover why thousands of teams choose Taskosaur to
+            Create your free account today and discover why thousands of teams choose AadyaBoard to
             streamline their workflow and achieve more.
           </p>
         </motion.div>

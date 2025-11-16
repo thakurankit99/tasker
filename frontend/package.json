@@ -1,8 +1,8 @@
 {
-  "name": "@taskosaur/frontend",
+  "name": "@aadyaboard/frontend",
   "version": "0.1.0",
-  "description": "Taskosaur Frontend - Next.js Application",
-  "author": "Taskosaur Team",
+  "description": "AadyaBoard Frontend - Next.js Application by Aadya Technovate",
+  "author": "Aadya Technovate",
   "type": "module",
   "private": true,
   "license": "SEE LICENSE IN https://github.com/Taskosaur/Taskosaur/blob/main/LICENSE.md",

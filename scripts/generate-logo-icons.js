@@ -173,9 +173,9 @@ async function generateFaviconIco(pngBuffers) {
  */
 function generateManifest() {
   const manifest = {
-    name: 'TaskosaurAny',
-    short_name: 'Taskosaur',
-    description: 'Intelligent task automation platform with AI-powered chat interface',
+    name: 'AadyaBoard',
+    short_name: 'AadyaBoard',
+    description: 'Smart project management platform by Aadya Technovate',
     icons: [
       {
         src: '/android-chrome-192x192.png',
