@@ -752,7 +752,7 @@ function TasksPageContent() {
       </Head>
       <div className="dashboard-container h-[91vh] flex flex-col space-y-3">
       {/* Sticky PageHeader */}
-      <div className="sticky top-0 z-50">
+      <div className="sticky top-0 z-30 bg-[var(--background)]">
         <PageHeader
           icon={<Clipboard className="size-20px" />}
           title="My Tasks"

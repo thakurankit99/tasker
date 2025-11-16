@@ -782,7 +782,7 @@ function WorkspaceTasksContent() {
   return (
     <div className="dashboard-container h-[86vh] flex flex-col space-y-3">
       {/* Sticky PageHeader */}
-      <div className="sticky top-0 z-50 ">
+      <div className="sticky top-0 z-30 bg-[var(--background)]">
         <PageHeader
           title={workspace ? `${workspace.name} Tasks` : "Workspace Tasks"}
           description="Manage and track all tasks across projects in this workspace."
@@ -853,7 +853,7 @@ function WorkspaceTasksContent() {
         />
       </div>
       {/* Sticky TabView */}
-      <div className="sticky top-[64px] z-40">
+      <div className="sticky top-[64px] z-20 bg-[var(--background)]">
         <TabView
           currentView={currentView}
           onViewChange={(v) => {
@@ -922,7 +922,7 @@ function WorkspaceTasksContent() {
       </div>
       {/* Sticky Pagination */}
       {showPagination && (
-        <div className="sticky bottom-0 z-30 pt-2">
+        <div className="sticky bottom-0 z-10 bg-[var(--background)] pt-2">
           <Pagination
             pagination={pagination}
             pageSize={pageSize}
