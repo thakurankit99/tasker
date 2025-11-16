@@ -73,11 +73,11 @@ export function LoginForm() {
         <div className="signup-mobile-logo">
           <div className="signup-mobile-logo-icon">
             <Image
-              src={resolvedTheme === "light" ? "/aadya-logo-dark.svg" : "/aadya-logo-white.svg"}
+              src={resolvedTheme === "light" ? "/aadya-logo-white.svg" : "/aadya-logo-dark.svg"}
               alt="AadyaBoard Logo"
-              width={80}
-              height={80}
-              className="size-12 lg:size-16"
+              width={120}
+              height={120}
+              className="size-16 lg:size-24"
             />
           </div>
         </div>

@@ -18,11 +18,11 @@ export function LoginContent() {
           <div className="">
             <div className="flex items-center">
               <Image
-                src={resolvedTheme === "light" ? "/aadya-logo-dark.svg" : "/aadya-logo-white.svg"}
+                src={resolvedTheme === "light" ? "/aadya-logo-white.svg" : "/aadya-logo-dark.svg"}
                 alt="AadyaBoard Logo"
-                width={80}
-                height={80}
-                className="size-10 lg:size-16"
+                width={120}
+                height={120}
+                className="size-16 lg:size-24"
               />
               <h1 className="login-brand-title">AadyaBoard</h1>
             </div>
