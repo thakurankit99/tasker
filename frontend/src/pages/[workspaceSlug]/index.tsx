@@ -8,7 +8,7 @@ import NotFound from "@/pages/404";
 export default function WorkspacePage() {
   const router = useRouter();
   const { workspaceSlug } = router.query;
-  const { error, workspace } = useWorkspace();
+  const { error, currentWorkspace } = useWorkspace();
   const { setShow404 } = useLayout();
 
   if (error) {
@@ -34,8 +34,8 @@ export default function WorkspacePage() {
   return (
     <>
       <Head>
-        <title>{workspace?.name || 'Workspace'} - AadyaBoard</title>
-        <meta name="description" content={`View analytics and manage ${workspace?.name || 'workspace'}`} />
+        <title>{currentWorkspace?.name || 'Workspace'} - AadyaBoard</title>
+        <meta name="description" content={`View analytics and manage ${currentWorkspace?.name || 'workspace'}`} />
       </Head>
       <div className="dashboard-container">
         <WorkspaceAnalytics workspaceSlug={workspaceSlug as string} />
