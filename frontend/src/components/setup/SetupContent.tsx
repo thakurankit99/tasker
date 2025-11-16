@@ -21,15 +21,16 @@ export function SetupContent() {
             <div className="flex items-center">
               <Image
                 src="/taskosaur-logo.svg"
-                alt="Taskosaur Logo"
+                alt="AadyaBoard Logo"
                 width={50}
                 height={50}
                 className={`size-6 lg:size-10 ${
                   resolvedTheme === "light" ? "filter invert brightness-200" : ""
                 }`}
               />
-              <h1 className="setup-brand-title">Taskosaur</h1>
+              <h1 className="setup-brand-title">AadyaBoard</h1>
             </div>
+            <p className="text-sm text-[var(--primary-foreground)]/70 mt-1">by Aadya Technovate</p>
           </div>
 
           <h2 className="setup-hero-heading">
@@ -39,7 +40,7 @@ export function SetupContent() {
           </h2>
 
           <p className="setup-hero-description">
-            Set up your super admin account to unlock the full power of Taskosaur's
+            Set up your super admin account to unlock the full power of AadyaBoard's
             AI-powered project management platform for your entire organization.
           </p>
         </motion.div>
