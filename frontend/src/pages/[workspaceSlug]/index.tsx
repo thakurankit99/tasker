@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { WorkspaceAnalytics } from "@/components/workspace/WorkspaceAnalytics";
 import { useRouter } from "next/router";
 import { useWorkspace } from "@/contexts/workspace-context";
@@ -7,7 +8,7 @@ import NotFound from "@/pages/404";
 export default function WorkspacePage() {
   const router = useRouter();
   const { workspaceSlug } = router.query;
-  const { error } = useWorkspace();
+  const { error, workspace } = useWorkspace();
   const { setShow404 } = useLayout();
 
   if (error) {
@@ -31,8 +32,14 @@ export default function WorkspacePage() {
   }
 
   return (
-    <div className="dashboard-container">
-      <WorkspaceAnalytics workspaceSlug={workspaceSlug as string} />
-    </div>
+    <>
+      <Head>
+        <title>{workspace?.name || 'Workspace'} - AadyaBoard</title>
+        <meta name="description" content={`View analytics and manage ${workspace?.name || 'workspace'}`} />
+      </Head>
+      <div className="dashboard-container">
+        <WorkspaceAnalytics workspaceSlug={workspaceSlug as string} />
+      </div>
+    </>
   );
 }

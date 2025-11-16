@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useAuth } from "@/contexts/auth-context";
 import NotificationScreen from "@/components/notifications/NotificationScreen";
 import { useWorkspaceContext } from "@/contexts/workspace-context";
@@ -23,6 +24,10 @@ export default function NotificationPage({}) {
 
   return (
     <>
+      <Head>
+        <title>Notifications - AadyaBoard</title>
+        <meta name="description" content="Stay updated with your latest notifications and alerts" />
+      </Head>
       <NotificationScreen userId={user.id} organizationId={currentOrganizationId} />
     </>
   );

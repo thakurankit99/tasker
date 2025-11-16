@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useOrganization } from "@/contexts/organization-context";
 import {
   HiClock,
@@ -350,5 +351,13 @@ function ActivityPageContent() {
 }
 
 export default function ActivityPage() {
-  return <ActivityPageContent />;
+  return (
+    <>
+      <Head>
+        <title>Activities - AadyaBoard</title>
+        <meta name="description" content="View recent activities and updates across your organization" />
+      </Head>
+      <ActivityPageContent />
+    </>
+  );
 }

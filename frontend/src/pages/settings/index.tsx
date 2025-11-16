@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useOrganization } from "@/contexts/organization-context";
 import { useAuth } from "@/contexts/auth-context";
@@ -301,5 +302,13 @@ function OrganizationSettingsPageContent() {
 }
 
 export default function OrganizationSettingsPage() {
-  return <OrganizationSettingsPageContent />;
+  return (
+    <>
+      <Head>
+        <title>Settings - AadyaBoard</title>
+        <meta name="description" content="Manage your organizations and account settings" />
+      </Head>
+      <OrganizationSettingsPageContent />
+    </>
+  );
 }

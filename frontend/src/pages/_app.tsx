@@ -1,4 +1,5 @@
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import "@/styles/globals.css";
 
 import { ThemeProvider } from "@/components/theme-provider";
@@ -12,7 +13,12 @@ import { Toaster } from "@/components/ui/sonner";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <>
+      <Head>
+        <title>AadyaBoard - AI-Powered Project Management</title>
+        <meta name="description" content="Transform your team's workflow with AadyaBoard's AI-powered project management platform" />
+      </Head>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <AuthProvider>
         <SetupChecker>
           <ChatProvider>
@@ -28,6 +34,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         enableConsoleAccess={true}
       />
       <Toaster expand={false} richColors closeButton />
-    </ThemeProvider>
+      </ThemeProvider>
+    </>
   );
 }

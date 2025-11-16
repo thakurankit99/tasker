@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useAuth } from "@/contexts/auth-context";
 import AuthRedirect from "@/components/auth/AuthRedirect";
 import { ModeToggle } from "@/components/header/ModeToggle";
@@ -13,6 +14,10 @@ export default function SignUpPage() {
 
   return (
     <AuthRedirect redirectTo={redirectTo}>
+      <Head>
+        <title>Sign Up - AadyaBoard</title>
+        <meta name="description" content="Create your AadyaBoard account and start your productivity journey" />
+      </Head>
       <div className="signup-container">
         {/* Left Content Section - Exactly 50% */}
         <div className="signup-content-panel">
