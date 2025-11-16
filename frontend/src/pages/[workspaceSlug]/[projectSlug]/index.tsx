@@ -8,13 +8,13 @@ import { useProjectContext } from "@/contexts/project-context";
 export default function ProjectPage() {
   const router = useRouter();
   const { projectSlug } = router.query;
-  const { project } = useProjectContext();
+  const { currentProject } = useProjectContext();
 
   return (
     <>
       <Head>
-        <title>{project?.name || 'Project'} - AadyaBoard</title>
-        <meta name="description" content={`View analytics and manage ${project?.name || 'project'}`} />
+        <title>{currentProject?.name || 'Project'} - AadyaBoard</title>
+        <meta name="description" content={`View analytics and manage ${currentProject?.name || 'project'}`} />
       </Head>
       <div className="dashboard-container">
         <ProjectAnalytics projectSlug={projectSlug as string} />
