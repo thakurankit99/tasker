@@ -27,10 +27,7 @@ export class ActivityLogService {
         organizationId: data.organizationId,
         oldValue: data.oldValue || null,
         newValue: data.newValue || null,
-<<<<<<< HEAD
         // Set createdBy and updatedBy to satisfy foreign key constraints
-=======
->>>>>>> upstream/main
         createdBy: data.userId,
         updatedBy: data.userId,
       },
