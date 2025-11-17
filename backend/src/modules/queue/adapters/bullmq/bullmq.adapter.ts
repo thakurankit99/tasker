@@ -38,6 +38,7 @@ export class BullMQAdapter implements IQueueAdapter {
   createWorker<T = any>(name: string, processor: WorkerProcessor<T>, config?: any): IWorker<T> {
     const workerOptions: WorkerOptions = {
       connection: this.config.connection,
+      prefix: this.config.prefix,
       ...config,
     };
 
