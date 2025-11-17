@@ -2,6 +2,7 @@ import { Worker, WorkerOptions, Job } from 'bullmq';
 import { IWorker, WorkerProcessor } from '../../interfaces/worker.interface';
 import { BullMQJobAdapter } from './bullmq-job.adapter';
 import { IJob } from '../../interfaces/job.interface';
+import { Logger } from '@nestjs/common';
 
 /**
  * BullMQ Worker Adapter - Wraps BullMQ Worker to implement IWorker interface
@@ -9,6 +10,7 @@ import { IJob } from '../../interfaces/job.interface';
 export class BullMQWorkerAdapter<T = any> implements IWorker<T> {
   private readonly worker: Worker<T>;
   private readonly processor: WorkerProcessor<T>;
+  private readonly logger = new Logger(`BullMQWorker`);
 
   constructor(queueName: string, processor: WorkerProcessor<T>, options: WorkerOptions) {
     this.processor = processor;
@@ -22,6 +24,21 @@ export class BullMQWorkerAdapter<T = any> implements IWorker<T> {
       },
       options,
     );
+
+    // Add event listeners for debugging
+    this.worker.on('completed', (job) => {
+      this.logger.log(`Job ${job.id} in queue "${queueName}" completed`);
+    });
+
+    this.worker.on('failed', (job, err) => {
+      this.logger.error(`Job ${job?.id} in queue "${queueName}" failed:`, err);
+    });
+
+    this.worker.on('error', (err) => {
+      this.logger.error(`Worker error in queue "${queueName}":`, err);
+    });
+
+    this.logger.log(`Worker started for queue "${queueName}"`);
   }
 
   get name(): string {
