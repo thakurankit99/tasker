@@ -35,6 +35,10 @@ export class EmailProcessor {
         user: smtpUser,
         pass: smtpPass,
       },
+      tls: {
+        // Accept self-signed certificates (required for Mailcow with self-signed certs)
+        rejectUnauthorized: false,
+      },
     });
 
     this.logger.log('SMTP transporter initialized successfully');
