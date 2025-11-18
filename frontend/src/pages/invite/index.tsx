@@ -34,6 +34,14 @@ export default function InviteRedirect() {
 
         const inviteeEmail = res.invitation.email;
 
+        // Debug logging
+        console.log("Invitation verification result:", {
+          email: inviteeEmail,
+          inviteeExists: res.inviteeExists,
+          isValid: res.isValid,
+          isAuthenticated: isAuthenticated(),
+        });
+
         /* 3 ▸ decide where to send the browser */
         if (res.inviteeExists) {
           // invited email already has an account
@@ -43,10 +51,12 @@ export default function InviteRedirect() {
             router.replace("/dashboard");
           } else {
             // not logged-in → go to login with email pre-filled
+            console.log("Redirecting to login - user exists but not authenticated");
             router.replace(`/login?email=${encodeURIComponent(inviteeEmail)}`);
           }
         } else {
           // no account yet → sign-up
+          console.log("Redirecting to signup - new user");
           router.replace(`/signup?email=${encodeURIComponent(inviteeEmail)}`);
         }
       } catch {
