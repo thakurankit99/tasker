@@ -66,12 +66,12 @@ wait_for_redis
 # Generate Prisma Client
 echo ""
 echo "🔨 Generating Prisma Client..."
-npm run prisma:generate
+npx prisma generate
 
 # Run database migrations (production - use deploy instead of dev)
 echo ""
 echo "🗃️  Deploying database migrations..."
-npm run prisma:migrate:deploy || {
+npx prisma migrate deploy || {
   echo "⚠️  Migration deployment failed or already up to date"
 }
 
