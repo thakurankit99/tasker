@@ -19,6 +19,8 @@ export default function ProtectedRoute({
   publicRoutes = [
     "/login",
     "/register",
+    "/signup",
+    "/invite",
     "/forgot-password",
     "/reset-password",
     "/terms-of-service",

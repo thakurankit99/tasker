@@ -240,7 +240,7 @@ const safeRedirect = (url: string): void => {
   try {
     if (typeof window !== "undefined") {
       const currentPath = window.location.pathname;
-      const publicPaths = ["/login", "/register", "/forgot-password", "/reset-password", "/404"];
+      const publicPaths = ["/login", "/register", "/signup", "/invite", "/forgot-password", "/reset-password", "/404"];
 
       // Don't redirect if already on a public page or 404
       if (!publicPaths.some((path) => currentPath.startsWith(path))) {
