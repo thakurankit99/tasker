@@ -13,8 +13,9 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
         },
       },
       // Limit connection pool to avoid exhausting Aiven's connection limit
-      // Aiven free tier typically allows 20-25 connections
-      // We use 10 to leave room for migrations, admin tools, etc.
+      // Aiven free tier typically allows 5-10 connections
+      // We use 3 to leave room for migrations, admin tools, etc.
+      // This prevents "too many clients" errors
       log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
     });
     return this.$extends(createAuditExtension()) as this;

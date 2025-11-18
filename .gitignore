@@ -40,6 +40,8 @@ client-sdk/dist/
 .env.test.local
 .env.production
 .env.production.local
+.env.koyeb
+env-vars-koyeb.txt
 
 # Logs
 logs/
