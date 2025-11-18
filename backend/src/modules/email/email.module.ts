@@ -38,7 +38,15 @@ export class EmailModule implements OnModuleInit {
 
       // Create worker for email queue
       adapter.createWorker('email', async (job) => {
-        return await this.emailProcessor.process(job);
+        this.logger.log(`[EMAIL WORKER] Processing job ${job.id} for ${job.data.to}`);
+        try {
+          const result = await this.emailProcessor.process(job);
+          this.logger.log(`[EMAIL WORKER] Job ${job.id} completed successfully`);
+          return result;
+        } catch (error) {
+          this.logger.error(`[EMAIL WORKER] Job ${job.id} failed:`, error);
+          throw error;
+        }
       });
 
       this.logger.log('Email worker registered successfully');

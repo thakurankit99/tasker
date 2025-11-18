@@ -20,6 +20,8 @@ export class EmailProcessor {
     const smtpUser = this.configService.get<string>('SMTP_USER');
     const smtpPass = this.configService.get<string>('SMTP_PASS');
 
+    this.logger.log(`Initializing SMTP transporter: host=${smtpHost}, port=${smtpPort}, user=${smtpUser}`);
+
     if (!smtpHost || !smtpUser || !smtpPass) {
       this.logger.warn('SMTP configuration missing. Email sending will be simulated.');
       return;
@@ -33,9 +35,13 @@ export class EmailProcessor {
         user: smtpUser,
         pass: smtpPass,
       },
+      tls: {
+        // Accept self-signed certificates (required for Mailcow with self-signed certs)
+        rejectUnauthorized: false,
+      },
     });
 
-    // Note: SMTP connection will be verified only when sending emails
+    this.logger.log('SMTP transporter initialized successfully');
   }
 
   async process(job: IJob<EmailJobData>) {
