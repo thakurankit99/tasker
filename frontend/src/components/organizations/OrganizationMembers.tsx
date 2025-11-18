@@ -91,6 +91,7 @@ export default function OrganizationMembers({
   const getCurrentUserId = () => getCurrentUser()?.id;
   const isCurrentUserOwner = organization?.ownerId === getCurrentUserId();
   const canManageMembers =
+    isCurrentUserOwner || // Organization owner always has management permissions
     currentUserRole === OrganizationRole.SUPER_ADMIN ||
     currentUserRole === OrganizationRole.MANAGER ||
     currentUserRole === OrganizationRole.OWNER;
@@ -106,7 +107,7 @@ export default function OrganizationMembers({
       return false;
     }
 
-    if (currentUserRole === OrganizationRole.MANAGER && member.role === OrganizationRole.MANAGER) {
+    if (currentUserRole === OrganizationRole.MANAGER && member.role === OrganizationRole.MANAGER && !isCurrentUserOwner) {
       return false;
     }
 
@@ -125,10 +126,11 @@ export default function OrganizationMembers({
       return false;
     }
 
-    // Manager cannot remove other managers
+    // Manager cannot remove other managers (unless you're the org owner)
     // if (
     //   currentUserRole === OrganizationRole.MANAGER &&
-    //   member.role === OrganizationRole.MANAGER
+    //   member.role === OrganizationRole.MANAGER &&
+    //   !isCurrentUserOwner
     // ) {
     //   return false;
     // }
